@@ -10,7 +10,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(135deg, #f6f5fa 0%, #e2e6ee 100%);
+            background: #ececec;
+        }
+        form > .card {
+            background-color: #ffffff;
         }
         .form-control {
             background-color: #fff !important;
@@ -21,7 +24,7 @@
     <div class="container py-5" style="max-width: 900px; margin: 0 auto;">
         <section class="p-5 rounded mb-4 text-center">
             <div class="mb-3">
-                <i class="bi bi-car-front display-1 text-primary"></i>
+                <span class="display-1 text-primary">🚗</span>
             </div>
             <h1 class="display-4 fw-bold mb-3">Autóköltség-kalkulátor</h1>
             <p class="lead fs-3 mb-0">
@@ -29,314 +32,356 @@
             </p>
         </section>
         <form>
-            <div class="mb-3">
-                <label for="evjarat" class="form-label">Gyártási év</label>
-                <div class="input-group">
-                    <input type="number" class="form-control" id="evjarat" name="evjarat" value="2015" min="1980" max="2024">
-                    <span class="input-group-text">év</span>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label d-block mb-2">Hajtás</label>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="hajtas" id="hajtas-benzin" value="benzin" checked>
-                    <label class="form-check-label" for="hajtas-benzin">Benzin</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="hajtas" id="hajtas-dizel" value="dizel">
-                    <label class="form-check-label" for="hajtas-dizel">Dízel</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="hajtas" id="hajtas-hibrid" value="hibrid">
-                    <label class="form-check-label" for="hajtas-hibrid">Hibrid</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="hajtas" id="hajtas-elektromos" value="elektromos">
-                    <label class="form-check-label" for="hajtas-elektromos">Elektromos</label>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="vasarlas_datum" class="form-label">Mikor vetted az autót?</label>
-                <input type="date" class="form-control" id="vasarlas_datum" name="vasarlas_datum" value="2023-01-01" placeholder="Vétel dátuma">
-            </div>
-            <div class="mb-3">
-                <label for="vetelar" class="form-label">Autó vételára</label>
-                <div class="input-group">
-                    <input type="number" class="form-control" id="vetelar" name="vetelar" value="5000000" min="0" step="10000">
-                    <span class="input-group-text">Ft</span>
-                </div>
-                <div class="form-text text-muted mt-1" style="font-size: 0.95em;">
-                    Az autó értéke minden évben csökken. Az értékvesztés átlagos mértéke:<br>
-                    Benzines: 6.9%, Dízel: 7.9%, Hibrid: 6.1%, Elektromos: 8%<br>
-                    (forrás: hasznaltauto.hu)
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="futasteljesitmeny" class="form-label">Eddig hány kilométert tettél meg az autóddal összesen, mióta megvetted?</label>
-                <div class="input-group">
-                    <input type="number" class="form-control" id="futasteljesitmeny" name="futasteljesitmeny" value="12000" min="0" step="1000">
-                    <span class="input-group-text">km</span>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="csere_evek" class="form-label">Hány évente cseréled az autódat?</label>
-                <div class="input-group">
-                    <input type="number" class="form-control" id="csere_evek" name="csere_evek" value="8" min="1" max="30">
-                    <span class="input-group-text">év</span>
-                </div>
-            </div>
-                        <div class="mb-3">
-                    <label for="inflacio" class="form-label">Infláció</label>
-                    <div class="input-group">
-                        <input type="number" class="form-control" id="inflacio" name="inflacio" value="5" min="0" max="100" step="0.1">
-                        <span class="input-group-text">%</span>
-                    </div>
-            </div>
-            <div class="mb-3">
-                <label for="kamat" class="form-label">Elérhető tartós befektetés kamata</label>
-                <div class="input-group">
-                    <input type="number" class="form-control" id="kamat" name="kamat" value="11" min="0" max="100" step="0.1">
-                    <span class="input-group-text">%</span>
-                </div>
-                <div class="form-text text-muted mt-1" style="font-size: 0.95em;">
-                    Átlagosan infláció + 6%
-                </div>
-            </div>
-
-            <div class="mb-4">
-                <h2>Biztosítás</h2>
-                <div class="mb-3">
-                    <label for="biztositas_kotelezo" class="form-label">Kötelező biztosítás évente</label>
-                    <div class="input-group">
-                        <input type="number" class="form-control" id="biztositas_kotelezo" name="biztositas_kotelezo" value="70000" min="0" step="1000">
-                        <span class="input-group-text">Ft/év</span>
-                    </div>
-                </div>
-                <label class="form-label d-block mb-2">Casco típus</label>
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="casco_tipus" id="casco_nincs" value="nincs" checked>
-                                    <label class="form-check-label fw-bold" for="casco_nincs">Nincs casco</label>
-                                </div>
-                                <div class="mt-2 small text-muted">
-                                    A kockázatot te viseled, évente az autó értékének 5%-át biztosítatlan kockázatként számoljuk.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="casco_tipus" id="casco_alap" value="alap">
-                                    <label class="form-check-label fw-bold" for="casco_alap">Alap casco</label>
-                                </div>
-                                <div class="mt-2">
-                                    <label for="casco_alap_dij" class="form-label">Éves díj</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" id="casco_alap_dij" name="casco_alap_dij" value="165000" min="0" step="1000">
-                                        <span class="input-group-text">Ft/év</span>
-                                    </div>
-                                </div>
-                                <div class="mt-2">
-                                    <label for="casco_alap_onresz" class="form-label">Önrész</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" id="casco_alap_onresz" name="casco_alap_onresz" value="200000" min="0" step="10000">
-                                        <span class="input-group-text">Ft</span>
-                                    </div>
-                                </div>
-                                <div class="mt-2 small text-muted">
-                                    Bizonyos károkra nem fizet, évente az autó értékének 2%-át biztosítatlan kockázatként számoljuk.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="casco_tipus" id="casco_teljes" value="teljes">
-                                    <label class="form-check-label fw-bold" for="casco_teljes">Teljeskörű casco</label>
-                                </div>
-                                <div class="mt-2">
-                                    <label for="casco_teljes_dij" class="form-label">Éves díj</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" id="casco_teljes_dij" name="casco_teljes_dij" value="200000" min="0" step="1000">
-                                        <span class="input-group-text">Ft/év</span>
-                                    </div>
-                                </div>
-                                <div class="mt-2">
-                                    <label for="casco_teljes_onresz" class="form-label">Önrész</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" id="casco_teljes_onresz" name="casco_teljes_onresz" value="200000" min="0" step="10000">
-                                        <span class="input-group-text">Ft</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mb-4">
-                <h2>Hivatali költségek</h2>
-                <div class="mb-3">
-                    <label for="atiras" class="form-label">Átírás költsége</label>
-                    <div class="input-group">
-                        <input type="number" class="form-control" id="atiras" name="atiras" value="70000" min="0" step="1000">
-                        <span class="input-group-text">Ft</span>
-                    </div>
-                    <div class="form-text text-muted mt-1" style="font-size: 0.95em;">
-                        Az átírás költsége tartalmazza az illetéket, eredetvizsgálatot, új forgalmit stb. Jellemzően 70-150 ezer forint.
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="gepjarmuado" class="form-label">Gépjárműadó évente</label>
-                    <div class="input-group">
-                        <input type="number" class="form-control" id="gepjarmuado" name="gepjarmuado" value="20000" min="0" step="1000">
-                        <span class="input-group-text">Ft/év</span>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="muszaki_vizsga" class="form-label">Műszaki vizsga költsége (2 évente)</label>
-                    <div class="input-group">
-                        <input type="number" class="form-control" id="muszaki_vizsga" name="muszaki_vizsga" value="25000" min="0" step="1000">
-                        <span class="input-group-text">Ft/2 év</span>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="birsag" class="form-label">Mennyi bírságot fizettél átlagosan évente az elmúlt 3 évben?</label>
-                    <div class="input-group">
-                        <input type="number" class="form-control" id="birsag" name="birsag" value="0" min="0" step="1000">
-                        <span class="input-group-text">Ft/év</span>
-                    </div>
-                    <div class="form-text text-muted mt-1" style="font-size: 0.95em;">
-                        Gyorshajtás, tilosban parkolás, stb. Évente.
-                    </div>
-                </div>
-            </div>
-
-            <div class="mb-4">
-                <h2>Üzemanyag</h2>
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <label for="varos_fogyasztas" class="form-label">Fogyasztás városban</label>
+            <div class="card rounded-4 shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="evjarat" class="form-label">Gyártási év</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" id="varos_fogyasztas" name="varos_fogyasztas" value="7" min="0" step="0.1">
-                            <span class="input-group-text">liter/100km vagy kWh/100km</span>
+                            <input type="number" class="form-control" id="evjarat" name="evjarat" value="2015" min="1980" max="2024">
+                            <span class="input-group-text">év</span>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <label for="orszagut_fogyasztas" class="form-label">Fogyasztás országúton</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="orszagut_fogyasztas" name="orszagut_fogyasztas" value="6" min="0" step="0.1">
-                            <span class="input-group-text">liter/100km vagy kWh/100km</span>
+                    <div class="mb-3">
+                        <label class="form-label d-block mb-2">Hajtás</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="hajtas" id="hajtas-benzin" value="benzin" checked>
+                            <label class="form-check-label" for="hajtas-benzin">Benzin</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="hajtas" id="hajtas-dizel" value="dizel">
+                            <label class="form-check-label" for="hajtas-dizel">Dízel</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="hajtas" id="hajtas-hibrid" value="hibrid">
+                            <label class="form-check-label" for="hajtas-hibrid">Hibrid</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="hajtas" id="hajtas-elektromos" value="elektromos">
+                            <label class="form-check-label" for="hajtas-elektromos">Elektromos</label>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <label for="autopalya_fogyasztas" class="form-label">Fogyasztás autópályán</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="autopalya_fogyasztas" name="autopalya_fogyasztas" value="8" min="0" step="0.1">
-                            <span class="input-group-text">liter/100km vagy kWh/100km</span>
-                        </div>
+                    <div class="mb-3">
+                        <label for="vasarlas_datum" class="form-label">Mikor vetted az autót?</label>
+                        <input type="date" class="form-control" id="vasarlas_datum" name="vasarlas_datum" value="2023-01-01" placeholder="Vétel dátuma">
                     </div>
-                </div>
-                <div class="mb-3">
-                    <label for="uzemanyag_ar" class="form-label">Üzemanyag átlagára</label>
-                    <div class="input-group">
-                        <input type="number" class="form-control" id="uzemanyag_ar" name="uzemanyag_ar" value="600" min="0" step="1">
-                        <span class="input-group-text">Ft/liter vagy Ft/kWh</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mb-4">
-                <h2>Karbantartás</h2>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="olajcsere" class="form-label">Olaj és egyéb szűrőcsere költsége</label>
+                    <div class="mb-3">
+                        <label for="vetelar" class="form-label">Autó vételára</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" id="olajcsere" name="olajcsere" value="20000" min="0" step="1000">
+                            <input type="number" class="form-control" id="vetelar" name="vetelar" value="5000000" min="0" step="10000">
                             <span class="input-group-text">Ft</span>
                         </div>
+                        <div class="form-text text-muted" style="font-size: 0.95em;">
+                            Az autó értéke minden évben csökken. Az értékvesztés átlagos mértéke:<br>
+                            Benzines: 6.9%, Dízel: 7.9%, Hibrid: 6.1%, Elektromos: 8%<br>
+                            (forrás: hasznaltauto.hu)
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <label for="olajcsere_km" class="form-label">Hány kilométerenként?</label>
+                    <div class="mb-3">
+                        <label for="futasteljesitmeny" class="form-label">Eddig hány kilométert tettél meg az autóddal összesen, mióta megvetted?</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" id="olajcsere_km" name="olajcsere_km" value="10000" min="0" step="1000">
+                            <input type="number" class="form-control" id="futasteljesitmeny" name="futasteljesitmeny" value="12000" min="0" step="1000">
                             <span class="input-group-text">km</span>
                         </div>
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="nyarigumi" class="form-label">Nyári gumigarnitúra ára</label>
+                    <div class="mb-3">
+                        <label for="csere_evek" class="form-label">Hány évente cseréled az autódat?</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" id="nyarigumi" name="nyarigumi" value="120000" min="0" step="1000">
-                            <span class="input-group-text">Ft</span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="nyarigumi_km" class="form-label">Hány kilométerenként veszel újat?</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="nyarigumi_km" name="nyarigumi_km" value="60000" min="0" step="1000">
-                            <span class="input-group-text">km</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="teligumi" class="form-label">Téli gumigarnitúra ára</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="teligumi" name="teligumi" value="120000" min="0" step="1000">
-                            <span class="input-group-text">Ft</span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="teligumi_km" class="form-label">Hány kilométerenként veszel újat?</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="teligumi_km" name="teligumi_km" value="60000" min="0" step="1000">
-                            <span class="input-group-text">km</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="akkumulator" class="form-label">Akkumulátor ára</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="akkumulator" name="akkumulator" value="50000" min="0" step="1000">
-                            <span class="input-group-text">Ft</span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="akkumulator_evek" class="form-label">Hány évente veszel újat?</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="akkumulator_evek" name="akkumulator_evek" value="5" min="1" max="20">
+                            <input type="number" class="form-control" id="csere_evek" name="csere_evek" value="8" min="1" max="30">
                             <span class="input-group-text">év</span>
                         </div>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label for="szerviz" class="form-label">Évente mennyit költesz szervizre az olajcserén kívül?</label>
-                    <div class="form-text text-muted mt-1" style="font-size: 0.95em;">
-                        Fék, kuplung, váltó, felfüggesztés, csapágyak, klíma, akkumulátor és minden egyéb javítás.
+            </div>
+
+            <div class="card rounded-4 shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="inflacio" class="form-label">Infláció</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="inflacio" name="inflacio" value="5" min="0" max="100" step="0.1">
+                            <span class="input-group-text">%</span>
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <input type="number" class="form-control" id="szerviz" name="szerviz" value="200000" min="0" step="1000">
-                        <span class="input-group-text">Ft/év</span>
+                    <div class="mb-3">
+                        <label for="kamat" class="form-label">Elérhető tartós befektetés kamata</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="kamat" name="kamat" value="11" min="0" max="100" step="0.1">
+                            <span class="input-group-text">%</span>
+                        </div>
+                        <div class="form-text text-muted" style="font-size: 0.95em;">
+                            Átlagosan infláció + 6%
+                        </div>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label for="aprosagok" class="form-label">Egyéb apróságok évente</label>
-                    <div class="form-text text-muted mt-1" style="font-size: 0.95em;">
-                        Ablakmosó, ablaktörlő, elsősegély csomag, izzó, stb.
+            </div>
+
+            <div class="card rounded-4 shadow-sm mb-4">
+                <div class="card-body">
+                    <h2 class="card-title fs-4 fw-bold">Biztosítás</h2>
+                    <div class="mb-3">
+                        <label for="biztositas_kotelezo" class="form-label">Kötelező biztosítás évente</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="biztositas_kotelezo" name="biztositas_kotelezo" value="70000" min="0" step="1000">
+                            <span class="input-group-text">Ft/év</span>
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <input type="number" class="form-control" id="aprosagok" name="aprosagok" value="40000" min="0" step="1000">
-                        <span class="input-group-text">Ft/év</span>
+                    <label class="form-label d-block mb-2">Casco típus</label>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="casco_tipus" id="casco_nincs" value="nincs" checked>
+                                        <label class="form-check-label fw-bold" for="casco_nincs">Nincs casco</label>
+                                    </div>
+                                    <div class="mt-2 small text-muted">
+                                        A kockázatot te viseled, évente az autó értékének 5%-át biztosítatlan kockázatként számoljuk.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="casco_tipus" id="casco_alap" value="alap">
+                                        <label class="form-check-label fw-bold" for="casco_alap">Alap casco</label>
+                                    </div>
+                                    <div class="mt-2">
+                                        <label for="casco_alap_dij" class="form-label">Éves díj</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="casco_alap_dij" name="casco_alap_dij" value="165000" min="0" step="1000">
+                                            <span class="input-group-text">Ft/év</span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <label for="casco_alap_onresz" class="form-label">Önrész</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="casco_alap_onresz" name="casco_alap_onresz" value="200000" min="0" step="10000">
+                                            <span class="input-group-text">Ft</span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2 small text-muted">
+                                        Bizonyos károkra nem fizet, évente az autó értékének 2%-át biztosítatlan kockázatként számoljuk.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="casco_tipus" id="casco_teljes" value="teljes">
+                                        <label class="form-check-label fw-bold" for="casco_teljes">Teljeskörű casco</label>
+                                    </div>
+                                    <div class="mt-2">
+                                        <label for="casco_teljes_dij" class="form-label">Éves díj</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="casco_teljes_dij" name="casco_teljes_dij" value="200000" min="0" step="1000">
+                                            <span class="input-group-text">Ft/év</span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <label for="casco_teljes_onresz" class="form-label">Önrész</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="casco_teljes_onresz" name="casco_teljes_onresz" value="200000" min="0" step="10000">
+                                            <span class="input-group-text">Ft</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <div class="card rounded-4 shadow-sm">
+                    <div class="card-body">
+                        <h2 class="card-title fs-4 fw-bold mb-4">Hivatali költségek</h2>
+                        <div class="mb-3">
+                            <label for="atiras" class="form-label">Átírás költsége</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="atiras" name="atiras" value="70000" min="0" step="1000">
+                                <span class="input-group-text">Ft</span>
+                            </div>
+                            <div class="form-text text-muted" style="font-size: 0.95em;">
+                                Az átírás költsége tartalmazza az illetéket, eredetvizsgálatot, új forgalmit stb. Jellemzően 70-150 ezer forint.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="gepjarmuado" class="form-label">Gépjárműadó évente</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="gepjarmuado" name="gepjarmuado" value="20000" min="0" step="1000">
+                                <span class="input-group-text">Ft/év</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="muszaki_vizsga" class="form-label">Műszaki vizsga költsége (2 évente)</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="muszaki_vizsga" name="muszaki_vizsga" value="25000" min="0" step="1000">
+                                <span class="input-group-text">Ft/2 év</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="birsag" class="form-label">Mennyi bírságot fizettél átlagosan évente az elmúlt 3 évben?</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="birsag" name="birsag" value="0" min="0" step="1000">
+                                <span class="input-group-text">Ft/év</span>
+                            </div>
+                            <div class="form-text text-muted" style="font-size: 0.95em;">
+                                Gyorshajtás, tilosban parkolás, stb. Évente.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card rounded-4 shadow-sm mb-4">
+                <div class="card-body">
+                    <h2 class="card-title fs-4 fw-bold">Üzemanyag</h2>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="orszagut_fogyasztas" class="form-label">Fogyasztás országúton</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="orszagut_fogyasztas" name="orszagut_fogyasztas" value="6" min="0" step="0.1">
+                                <span class="input-group-text">liter/100km vagy kWh/100km</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="autopalya_fogyasztas" class="form-label">Fogyasztás autópályán</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="autopalya_fogyasztas" name="autopalya_fogyasztas" value="8" min="0" step="0.1">
+                                <span class="input-group-text">liter/100km vagy kWh/100km</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="varos_fogyasztas" class="form-label">Fogyasztás városban</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="varos_fogyasztas" name="varos_fogyasztas" value="7" min="0" step="0.1">
+                                <span class="input-group-text">liter/100km vagy kWh/100km</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="orszagut_arany" class="form-label">Országúti forgalom aránya</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="orszagut_arany" name="orszagut_arany" value="40" min="0" max="100" step="1">
+                                <span class="input-group-text">%</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="autopalya_arany" class="form-label">Autópálya forgalom aránya</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="autopalya_arany" name="autopalya_arany" value="30" min="0" max="100" step="1">
+                                <span class="input-group-text">%</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="varos_arany" class="form-label">Városi forgalom aránya</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="varos_arany" name="varos_arany" value="30" min="0" max="100" step="1" disabled>
+                                <span class="input-group-text">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="uzemanyag_ar" class="form-label">Üzemanyag átlagára</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="uzemanyag_ar" name="uzemanyag_ar" value="600" min="0" step="1">
+                            <span class="input-group-text">Ft/liter vagy Ft/kWh</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card rounded-4 shadow-sm mb-4">
+                <div class="card-body">
+                    <h2 class="card-title fs-4 fw-bold">Karbantartás</h2>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="olajcsere" class="form-label">Olaj és egyéb szűrőcsere költsége</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="olajcsere" name="olajcsere" value="20000" min="0" step="1000">
+                                <span class="input-group-text">Ft</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="olajcsere_km" class="form-label">Hány kilométerenként?</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="olajcsere_km" name="olajcsere_km" value="10000" min="0" step="1000">
+                                <span class="input-group-text">km</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="nyarigumi" class="form-label">Nyári gumigarnitúra ára</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="nyarigumi" name="nyarigumi" value="120000" min="0" step="1000">
+                                <span class="input-group-text">Ft</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="nyarigumi_km" class="form-label">Hány kilométerenként veszel újat?</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="nyarigumi_km" name="nyarigumi_km" value="60000" min="0" step="1000">
+                                <span class="input-group-text">km</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="teligumi" class="form-label">Téli gumigarnitúra ára</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="teligumi" name="teligumi" value="120000" min="0" step="1000">
+                                <span class="input-group-text">Ft</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="teligumi_km" class="form-label">Hány kilométerenként veszel újat?</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="teligumi_km" name="teligumi_km" value="60000" min="0" step="1000">
+                                <span class="input-group-text">km</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="akkumulator" class="form-label">Akkumulátor ára</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="akkumulator" name="akkumulator" value="50000" min="0" step="1000">
+                                <span class="input-group-text">Ft</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="akkumulator_evek" class="form-label">Hány évente veszel újat?</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="akkumulator_evek" name="akkumulator_evek" value="5" min="1" max="20">
+                                <span class="input-group-text">év</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="szerviz" class="form-label">Évente mennyit költesz szervizre az olajcserén kívül?</label>
+                        <div class="form-text text-muted" style="font-size: 0.95em;">
+                            Fék, kuplung, váltó, felfüggesztés, csapágyak, klíma, akkumulátor és minden egyéb javítás.
+                        </div>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="szerviz" name="szerviz" value="200000" min="0" step="1000">
+                            <span class="input-group-text">Ft/év</span>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="aprosagok" class="form-label">Egyéb apróságok évente</label>
+                        <div class="form-text text-muted" style="font-size: 0.95em;">
+                            Ablakmosó, ablaktörlő, elsősegély csomag, izzó, stb.
+                        </div>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="aprosagok" name="aprosagok" value="40000" min="0" step="1000">
+                            <span class="input-group-text">Ft/év</span>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="automosas" class="form-label">Autómosás, kozmetika, porszívó HAVONTA</label>
@@ -348,107 +393,90 @@
                 </div>
             </div>
             
-            <div class="mb-4">
-                <h2>Parkolás</h2>
-                <label class="form-label d-block mb-2">Otthoni parkolás</label>
-                <div class="row g-3 mb-4">
-                    <div class="col-md-6">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="radio" name="parkolas_tipus" id="parkolas_garazs" value="garazs" checked>
-                                    <label class="form-check-label fw-bold" for="parkolas_garazs">Saját garázsom van</label>
+            <div class="card rounded-4 shadow-sm mb-4">
+                <div class="card-body">
+                    <h2 class="card-title fs-4 fw-bold">Parkolás</h2>
+                    <label class="form-label d-block mb-2">Otthoni parkolás</label>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <div class="card rounded-3 h-100">
+                                <div class="card-body">
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="radio" name="parkolas_tipus" id="parkolas_garazs" value="garazs" checked>
+                                        <label class="form-check-label fw-bold" for="parkolas_garazs">Saját garázsom van</label>
+                                    </div>
+                                    <div class="mb-2 small text-muted">
+                                        A garázs havi költsége az elmaradt kamat.
+                                    </div>
+                                    <label for="garazs_ertek" class="form-label">Garázs értéke</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="garazs_ertek" name="garazs_ertek" value="10000000" min="0" step="100000">
+                                        <span class="input-group-text">Ft</span>
+                                    </div>
                                 </div>
-                                <div class="mb-2 small text-muted">
-                                    A garázs havi költsége az elmaradt kamat.
-                                </div>
-                                <label for="garazs_ertek" class="form-label">Garázs értéke</label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control" id="garazs_ertek" name="garazs_ertek" value="10000000" min="0" step="100000">
-                                    <span class="input-group-text">Ft</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card rounded-3 h-100">
+                                <div class="card-body">
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="radio" name="parkolas_tipus" id="parkolas_berlet" value="berlet">
+                                        <label class="form-check-label fw-bold" for="parkolas_berlet">Bérlek egy parkolóhelyet</label>
+                                    </div>
+                                    <label for="garazsberlet" class="form-label">Bérlés díja havonta</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="garazsberlet" name="garazsberlet" value="20000" min="0" step="1000">
+                                        <span class="input-group-text">Ft/hó</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="radio" name="parkolas_tipus" id="parkolas_berlet" value="berlet">
-                                    <label class="form-check-label fw-bold" for="parkolas_berlet">Bérlek egy parkolóhelyet</label>
-                                </div>
-                                <label for="garazsberlet" class="form-label">Bérlés díja <b>havonta</b></label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control" id="garazsberlet" name="garazsberlet" value="20000" min="0" step="1000">
-                                    <span class="input-group-text">Ft/hó</span>
-                                </div>
-                            </div>
+                    <div class="mb-3">
+                        <label for="parkolas_mashol" class="form-label">Otthonon kívüli parkolás havonta</label>
+                        <div class="form-text text-muted" style="font-size: 0.95em;">
+                            Parkolójegyek, behajtási díjak
                         </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="parkolas_mashol" class="form-label">Otthonon kívüli parkolás havonta</label>
-                    <div class="form-text text-muted mt-1" style="font-size: 0.95em;">
-                        Parkolójegyek, behajtási díjak
-                    </div>
-                    <div class="input-group">
-                        <input type="number" class="form-control" id="parkolas_mashol" name="parkolas_mashol" value="10000" min="0" step="1000">
-                        <span class="input-group-text">Ft/hó</span>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="parkolas_mashol" name="parkolas_mashol" value="10000" min="0" step="1000">
+                            <span class="input-group-text">Ft/hó</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
 
-            <div class="mb-3">
-                <label for="utdij" class="form-label">Autópálya díj, úthasználati díj évente</label>
-                <div class="form-text text-muted mt-1" style="font-size: 0.95em;">
-                    Belföldön és külföldön egyaránt.
-                </div>
-                <div class="input-group">
-                    <input type="number" class="form-control" id="utdij" name="utdij" value="59210" min="0" step="1000">
-                    <span class="input-group-text">Ft/év</span>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="extrak" class="form-label">Erre az autóra költött extra felszerelés költsége összesen</label>
-                <div class="form-text text-muted mt-1" style="font-size: 0.95em;">
-                    Tolatóradar, autórádió, utólagos klíma, üléshuzat és hasonlóak. Nem évente, hanem eddig összesen!
-                </div>
-                <div class="input-group">
-                    <input type="number" class="form-control" id="extrak" name="extrak" value="0" min="0" step="1000">
-                    <span class="input-group-text">Ft</span>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="egyeb_koltseg" class="form-label">Autóra költött egyéb költség összesen</label>
-                <div class="form-text text-muted mt-1" style="font-size: 0.95em;">
-                    Fóliázás, tunning, sportkipufogó, stb. Nem évente, hanem eddig összesen!
-                </div>
-                <div class="input-group">
-                    <input type="number" class="form-control" id="egyeb_koltseg" name="egyeb_koltseg" value="0" min="0" step="1000">
-                    <span class="input-group-text">Ft</span>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-md-4">
-                    <label for="orszagut_arany" class="form-label">Országúti forgalom aránya</label>
+            <div class="card rounded-4 shadow-sm mb-4">
+                <div class="card-body">
+                    <h2 class="card-title fs-4 fw-bold">Autópálya</h2>
+                    <label for="utdij" class="form-label">Autópálya díj, úthasználati díj évente</label>
                     <div class="input-group">
-                        <input type="number" class="form-control" id="orszagut_arany" name="orszagut_arany" value="40" min="0" max="100" step="1">
-                        <span class="input-group-text">%</span>
+                        <input type="number" class="form-control" id="utdij" name="utdij" value="59210" min="0" step="1000">
+                        <span class="input-group-text">Ft/év</span>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <label for="autopalya_arany" class="form-label">Autópálya forgalom aránya</label>
-                    <div class="input-group">
-                        <input type="number" class="form-control" id="autopalya_arany" name="autopalya_arany" value="30" min="0" max="100" step="1">
-                        <span class="input-group-text">%</span>
+            </div>
+            <div class="card rounded-4 shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="extrak" class="form-label">Erre az autóra költött extra felszerelés költsége összesen</label>
+                        <div class="form-text text-muted" style="font-size: 0.95em;">
+                            Tolatóradar, autórádió, utólagos klíma, üléshuzat és hasonlóak. Nem évente, hanem eddig összesen!
+                        </div>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="extrak" name="extrak" value="0" min="0" step="1000">
+                            <span class="input-group-text">Ft</span>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <label for="varos_arany" class="form-label">Városi forgalom aránya</label>
-                    <div class="input-group">
-                        <input type="number" class="form-control" id="varos_arany" name="varos_arany" value="30" min="0" max="100" step="1">
-                        <span class="input-group-text">%</span>
+                    <div class="mb-3">
+                        <label for="egyeb_koltseg" class="form-label">Autóra költött egyéb költség összesen</label>
+                        <div class="form-text text-muted" style="font-size: 0.95em;">
+                            Fóliázás, tunning, sportkipufogó, stb. Nem évente, hanem eddig összesen!
+                        </div>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="egyeb_koltseg" name="egyeb_koltseg" value="0" min="0" step="1000">
+                            <span class="input-group-text">Ft</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -456,10 +484,13 @@
         <hr class="my-5">
         <div class="row g-4">
             <div class="col-md-4">
-                <div class="card text-center shadow-sm">
+                <div class="card text-center rounded-3 shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">Havi költség</h5>
-                        <p class="display-6 mb-0" id="eredmeny_havi_koltseg">–</p>
+                        <p class="fs-2 mb-0 fw-bold">
+                            <span id="eredmeny_havi_koltseg">-</span>
+                            <span class="fs-3">Ft</span>
+                        </p>
                         <hr>
                         <div class="text-muted mt-2" style="font-size: 0.95em;">
                             Üzemanyag <span id="reszletek-uzemanyag">-</span>
@@ -489,7 +520,10 @@
                 <div class="card text-center shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">Egy megtett km költsége</h5>
-                        <p class="display-6 mb-0" id="eredmeny_km_koltseg">–</p>
+                        <p class="fs-2 mb-0 fw-bold">
+                            <span id="eredmeny_km_koltseg">-</span>
+                            <span class="fs-3">Ft</span>
+                        </p>
                         <div class="text-muted mt-2" style="font-size: 0.95em;">
                             Minden további megtett kilométer ennyibe kerül. Minden megspórolt kilométer ennyit takarít meg.
                         </div>
@@ -500,7 +534,10 @@
                 <div class="card text-center shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">Ha mindezt megtakarítottad volna</h5>
-                        <p class="display-6 mb-0" id="eredmeny_megtakaritas">–</p>
+                        <p class="fs-2 mb-0 fw-bold">
+                            <span id="eredmeny_megtakaritas">-</span>
+                            <span class="fs-3">Ft</span>
+                        </p>
                         <div class="text-muted mt-2" style="font-size: 0.95em;">
                             Ha autóvásárlás helyett minden erre költött forintot befektettél volna, most ennyi lenne a számládon.
                         </div>
@@ -652,26 +689,26 @@
                 (extrak + egyeb_koltseg) / (evek * 12);
 
 
-            document.getElementById('eredmeny_havi_koltseg').textContent = Math.round(havi_koltseg).toLocaleString('hu-HU') + ' Ft';
-            document.getElementById('reszletek-ertekvesztes').textContent = Math.round(ertekvesztes).toLocaleString('hu-HU') + ' Ft';
-            document.getElementById('reszletek-uzemanyag').textContent = Math.round(uzemanyag).toLocaleString('hu-HU') + ' Ft';
-            document.getElementById('reszletek-kamat').textContent = Math.round(elmaradt_kamatok).toLocaleString('hu-HU') + ' Ft';
-            document.getElementById('reszletek-biztositas').textContent = Math.round(biztositasok).toLocaleString('hu-HU') + ' Ft';
-            document.getElementById('reszletek-biztositanatlan_kockazat').textContent = Math.round(biztositatlan_kockazat / 12).toLocaleString('hu-HU') + ' Ft';
-            document.getElementById('reszletek-karbantartas').textContent = Math.round((szerviz + (gumikopas_km + olajcsere_km) * futasteljesitmeny / evek + aprosagok + akkumulator_eves) / 12).toLocaleString('hu-HU') + ' Ft';
-            document.getElementById('reszletek-parkolas').textContent = Math.round(parkolas).toLocaleString('hu-HU') + ' Ft';
+            document.getElementById('eredmeny_havi_koltseg').textContent = Math.round(havi_koltseg).toLocaleString('hu-HU');
+            document.getElementById('reszletek-ertekvesztes').textContent = Math.round(ertekvesztes).toLocaleString('hu-HU');
+            document.getElementById('reszletek-uzemanyag').textContent = Math.round(uzemanyag).toLocaleString('hu-HU');
+            document.getElementById('reszletek-kamat').textContent = Math.round(elmaradt_kamatok).toLocaleString('hu-HU');
+            document.getElementById('reszletek-biztositas').textContent = Math.round(biztositasok).toLocaleString('hu-HU');
+            document.getElementById('reszletek-biztositanatlan_kockazat').textContent = Math.round(biztositatlan_kockazat / 12).toLocaleString('hu-HU');
+            document.getElementById('reszletek-karbantartas').textContent = Math.round((szerviz + (gumikopas_km + olajcsere_km) * futasteljesitmeny / evek + aprosagok + akkumulator_eves) / 12).toLocaleString('hu-HU');
+            document.getElementById('reszletek-parkolas').textContent = Math.round(parkolas).toLocaleString('hu-HU');
             
             const km_koltseg = 
                 gumikopas_km +
                 olajcsere_km +
                 uzemanyag_km +
                 szerviz * 0.8 / (futasteljesitmeny / evek);
-            document.getElementById('eredmeny_km_koltseg').textContent = Math.round(km_koltseg).toLocaleString('hu-HU') + ' Ft';
+            document.getElementById('eredmeny_km_koltseg').textContent = Math.round(km_koltseg).toLocaleString('hu-HU');
 
             // kamatos kamat
             const elmaradt_megtakaritas = havi_koltseg * 12 * (Math.pow(1 + kamat - inflacio, evek) - 1) / (kamat - inflacio);
             const ha_megtakaritottad_volna = Math.round((vetelar + garazs_ertek + elmaradt_megtakaritas) / 1000) * 1000;
-            document.getElementById('eredmeny_megtakaritas').textContent = ha_megtakaritottad_volna.toLocaleString('hu-HU') + ' Ft';
+            document.getElementById('eredmeny_megtakaritas').textContent = ha_megtakaritottad_volna.toLocaleString('hu-HU');
         
         }
 
@@ -684,6 +721,27 @@
             });
             ujraszamol();
         });
+
+        // Városi forgalom aránya automatikusan számolva
+    document.addEventListener('DOMContentLoaded', function() {
+        const orszagutInput = document.getElementById('orszagut_arany');
+        const autopalyaInput = document.getElementById('autopalya_arany');
+        const varosInput = document.getElementById('varos_arany');
+
+        function updateVarosArany() {
+            let o = Number(orszagutInput.value) || 0;
+            let a = Number(autopalyaInput.value) || 0;
+            let v = 100 - o - a;
+            if (v < 0) v = 0;
+            if (v > 100) v = 100;
+            varosInput.value = v;
+        }
+
+        orszagutInput.addEventListener('input', updateVarosArany);
+        autopalyaInput.addEventListener('input', updateVarosArany);
+        // Frissítés induláskor is
+        updateVarosArany();
+    });
     </script>
 </body>
 </html>
