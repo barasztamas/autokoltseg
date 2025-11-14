@@ -44,10 +44,10 @@
 
 <body>
     <div class="container py-5" style="max-width: 900px; margin: 0 auto;">
-        <section class="p-5 rounded mb-4 text-center">
-            <div class="mb-3">
-                <span class="display-1 text-primary">🚗</span>
-            </div>
+        <div class="text-center">
+            <img src="hero.png" alt="Autó" class="d-block mx-auto" style="max-width: 500px; width: 100%;">
+        </div>
+        <section class="px-2 px-md-5 pb-5 text-center">
             <h1 class="display-4 fw-bold mb-3">Autóköltség-kalkulátor</h1>
             <p class="lead fs-3 mb-4">
                 Megtudhatod, mennyibe kerül az autód havonta, ha figyelembe veszed az <b>összes</b> költséget. Töltsd ki
@@ -57,6 +57,7 @@
         <form>
             <div class="card rounded-4 shadow-sm mb-4">
                 <div class="card-body">
+                    <h2 class="card-title fs-4 fw-bold">Az autód</h2>
                     <div class="mb-3">
                         <label for="evjarat" class="form-label">Gyártási év</label>
                         <div class="input-group">
@@ -362,7 +363,7 @@
                         <div class="col-md-6">
                             <label for="olajcsere" class="form-label">Olaj és egyéb szűrőcsere költsége</label>
                             <div class="input-group">
-                                <input type="number" class="form-control" id="olajcsere" name="olajcsere" value="20000"
+                                <input type="number" class="form-control" id="olajcsere" name="olajcsere" value="30000"
                                     min="0" step="1000">
                                 <span class="input-group-text">Ft</span>
                             </div>
@@ -431,10 +432,10 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="szerviz" class="form-label">Évente mennyit költesz szervizre az olajcserén
+                        <label for="szerviz" class="form-label">Évente mennyit költesz szervizre a fentieken
                             kívül?</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" id="szerviz" name="szerviz" value="200000" min="0"
+                            <input type="number" class="form-control" id="szerviz" name="szerviz" value="150000" min="0"
                                 step="1000">
                             <span class="input-group-text">Ft/év</span>
                         </div>
@@ -584,14 +585,14 @@
             <div class="col-md-4">
                 <div class="card h-100 text-center shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title">Egy megtett km költsége</h5>
+                        <h5 class="card-title">1 megtett km költsége</h5>
                         <p class="fs-2 mb-0 fw-bold">
                             <span id="eredmeny_km_koltseg">-</span>
                             <span class="fs-3">Ft</span>
                         </p>
                         <div class="text-muted mt-2 fs-small">
-                            Minden további megtett kilométer ennyibe kerül. Minden megspórolt kilométer ennyit takarít
-                            meg.
+                            Minden további megtett kilométer ennyibe kerül. Minden megspórolt kilométer ennyit hagy a
+                            zsebedben.
                         </div>
                     </div>
                 </div>
@@ -599,7 +600,7 @@
             <div class="col-md-4">
                 <div class="card h-100 text-center shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title">Hosszú táv</h5>
+                        <h5 class="card-title">Hosszú távú költség</h5>
                         <p class="fs-2 mb-0 fw-bold">
                             <span id="eredmeny_megtakaritas">-</span>
                             <span class="fs-3">Ft</span>
