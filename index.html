@@ -55,15 +55,52 @@
             </p>
         </section>
         <form>
+            <div class="row gx-3 gy-1 mb-5 justify-content-md-center">
+                <div class="col-md-3">
+                    <div class="card rounded-4 h-100">
+                        <div class="card-body">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="megvane" id="meglevo"
+                                    value="meglevo" checked>
+                                <label class="form-check-label fw-bold" for="meglevo">Saját autómra számolok</label>
+                            </div>
+                            <div class="mt-2 small text-muted">
+                                Már megvan az autóm, és szeretném tudni a teljes havi költségét.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card rounded-4 h-100">
+                        <div class="card-body">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="megvane" id="mostveszem"
+                                    value="mostveszem">
+                                <label class="form-check-label fw-bold" for="mostveszem">Most vennék autót</label>
+                            </div>
+                            <div class="mt-2 small text-muted">
+                                Új vagy használt autót tervezek vásárolni, és szeretném tudni a várható havi költséget.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="card rounded-4 shadow-sm mb-4">
                 <div class="card-body">
-                    <h2 class="card-title fs-4 fw-bold">Az autód</h2>
+                    <h2 class="card-title fs-4 fw-bold">Az autó</h2>
                     <div class="mb-3">
                         <label for="evjarat" class="form-label">Gyártási év</label>
                         <div class="input-group">
                             <input type="number" class="form-control" id="evjarat" name="evjarat" value="2015"
-                                min="1980" max="2024">
+                                min="1980">
                             <span class="input-group-text">év</span>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check mt-2">
+                            <input class="form-check-input" type="checkbox" id="ujauto" name="ujauto">
+                            <label class="form-check-label" for="ujauto">Új autó</label>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -88,13 +125,13 @@
                             <label class="form-check-label" for="hajtas-elektromos">Elektromos</label>
                         </div>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3" id="vasarlas_datum_group">
                         <label for="vasarlas_datum" class="form-label">Mikor vetted az autót?</label>
                         <input type="date" class="form-control" id="vasarlas_datum" name="vasarlas_datum"
                             value="2023-01-01" placeholder="Vétel dátuma">
                     </div>
                     <div class="mb-3">
-                        <label for="vetelar" class="form-label">Autó vételára</label>
+                        <label for="vetelar" class="form-label">Autó vételára (alku után)</label>
                         <div class="input-group">
                             <input type="number" class="form-control" id="vetelar" name="vetelar" value="5000000"
                                 min="0" step="10000">
@@ -106,13 +143,21 @@
                             (forrás: hasznaltauto.hu)
                         </div>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3" id="futasteljesitmeny_group">
                         <label for="futasteljesitmeny" class="form-label">Eddig hány kilométert tettél meg az autóddal
                             összesen, mióta megvetted?</label>
                         <div class="input-group">
                             <input type="number" class="form-control" id="futasteljesitmeny" name="futasteljesitmeny"
                                 value="30000" min="0" step="1000">
                             <span class="input-group-text">km</span>
+                        </div>
+                    </div>
+                    <div class="mb-3" id="futasteljesitmeny_evente_group" style="display: none">
+                        <label for="futasteljesitmeny_evente" class="form-label">Évente hány kilométert tervezel megtenni?</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="futasteljesitmeny_evente" name="futasteljesitmeny_evente"
+                                value="15000" min="0" step="1000">
+                            <span class="input-group-text">km/év</span>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -534,7 +579,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card rounded-4 shadow-sm mb-4">
+            <div class="card rounded-4 shadow-sm mb-4" id="extrak_group">
                 <div class="card-body">
                     <div class="mb-3">
                         <label for="extrak" class="form-label">Erre az autóra költött extra felszerelés költsége
@@ -585,7 +630,7 @@
             <div class="col-md-4">
                 <div class="card h-100 text-center shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title">1 megtett km költsége</h5>
+                        <h5 class="card-title">+1 km költsége</h5>
                         <p class="fs-2 mb-0 fw-bold">
                             <span id="eredmeny_km_koltseg">-</span>
                             <span class="fs-3">Ft</span>
@@ -657,6 +702,10 @@
                                     <td class="text-end"><span id="reszletek-biztositanatlan_kockazat">-</span> Ft</td>
                                 </tr>
                                 <tr>
+                                    <td>Extra felszerelés, egyebek</td>
+                                    <td class="text-end"><span id="reszletek-extrak">-</span> Ft</td>
+                                </tr>
+                                <tr>
                                     <td>Elmaradt kamatok</td>
                                     <td class="text-end"><span id="reszletek-kamat">-</span> Ft</td>
                                 </tr>
@@ -667,7 +716,8 @@
             </div>
 
             <div class="mt-3">
-                <p>*️⃣ Vedd figyelembe, hogy ezek becsült értékek, és csak annyira pontosak, amennyire pontos számokat megadtál.</p>
+                <p>*️⃣ Vedd figyelembe, hogy ezek becsült értékek, és csak annyira pontosak, amennyire pontos számokat
+                    megadtál.</p>
             </div>
         </section>
     </div>
@@ -800,11 +850,14 @@
             const csere_evek = Number(document.getElementById('csere_evek').value) || 1;
             const futasteljesitmeny = Number(document.getElementById('futasteljesitmeny').value) || 0;
             const ertekvesztes_rata = document.getElementById('hajtas-benzin').checked ? 0.069 :
-                document.getElementById('hajtas-dizel').checked ? 0.079 :
-                    document.getElementById('hajtas-hibrid').checked ? 0.061 :
-                        0.08 // elektromos
+            document.getElementById('hajtas-dizel').checked ? 0.079 :
+            document.getElementById('hajtas-hibrid').checked ? 0.061 :
+            0.08 // elektromos
+            const mostveszem = document.getElementById('mostveszem').checked
             const evek = (new Date() - new Date(document.getElementById('vasarlas_datum').value)) / (1000 * 60 * 60 * 24 * 365);
-            const mai_ertek = vetelar * Math.pow(1 - ertekvesztes_rata, evek);
+            const ujauto = document.getElementById('ujauto').checked;
+            const ertekvesztes_ujauto = ujauto ? vetelar * 0.2 : 0;
+            const mai_ertek = (vetelar - ertekvesztes_ujauto) * Math.pow(1 - ertekvesztes_rata, evek);
             const orszagut_arany = (Number(document.getElementById('orszagut_arany').value) || 0) / 100;
             const autopalya_arany = (Number(document.getElementById('autopalya_arany').value) || 0) / 100;
             const varos_arany = (Number(document.getElementById('varos_arany').value) || 0) / 100;
@@ -815,9 +868,13 @@
             const kamat = (Number(document.getElementById('kamat').value) || 0) / 100;
             const inflacio = (Number(document.getElementById('inflacio').value) || 0) / 100;
             const garazs_ertek = (document.getElementById('parkolas_garazs').checked) ? Number(document.getElementById('garazs_ertek').value) || 0 : 0;
+            const futasteljesitmeny_evente = mostveszem ? Number(document.getElementById('futasteljesitmeny_evente').value) : futasteljesitmeny / evek;
+            const statisztika_atlagos_futasteljesitmeny_evente = 20000;
+            const futasteljesitmeny_szorzo = futasteljesitmeny_evente / statisztika_atlagos_futasteljesitmeny_evente;
 
             // egyszeri költségek
             const atiras = Number(document.getElementById('atiras').value) || 0;
+            // ertekvesztes_ujauto
 
             // autó vásárlásától kumuláltan számolt költségek
             const extrak = Number(document.getElementById('extrak').value) || 0;
@@ -828,7 +885,8 @@
             if (document.getElementById('casco_alap').checked) {
                 var casco = Number(document.getElementById('casco_alap_dij').value) || 0;
                 var casco_onresz = Number(document.getElementById('casco_alap_onresz').value) || 0;
-                var biztositatlan_kockazat = mai_ertek * 0.01 + casco_onresz / 4; // évente az önrész negyed részét számoljuk el
+                // évente átlag 1%-ot plusz az önrész negyed részét számoljuk el
+                var biztositatlan_kockazat = mai_ertek * 0.01 * futasteljesitmeny_szorzo + casco_onresz / 4;
             } else if (document.getElementById('casco_teljes').checked) {
                 var casco = Number(document.getElementById('casco_teljes_dij').value) || 0;
                 var casco_onresz = Number(document.getElementById('casco_teljes_onresz').value) || 0;
@@ -836,11 +894,11 @@
             } else {
                 var casco = 0;
                 var casco_onresz = 0;
-                var biztositatlan_kockazat = mai_ertek * 0.04; // 5% kockázatot számolunk el
+                var biztositatlan_kockazat = mai_ertek * 0.04 * futasteljesitmeny_szorzo; // átlag 4% kockázatot számolunk el
             }
             const gepjarmuado = Number(document.getElementById('gepjarmuado').value) || 0;
             const muszaki_vizsga = Number(document.getElementById('muszaki_vizsga').value) / 2 || 0;
-            const ertekvesztes_iden = mai_ertek * ertekvesztes_rata;
+            const ertekvesztes_eves = vetelar * (1 - Math.pow(1 - ertekvesztes_rata, csere_evek)) / csere_evek;
             const elmaradt_kamat = vetelar * kamat;
             const szerviz = Number(document.getElementById('szerviz').value) || 0;
             const utdij = Number(document.getElementById('utdij').value) || 0;
@@ -868,16 +926,16 @@
             // Eredmények
             const karbantartas = (
                 szerviz +
-                (gumikopas_km + olajcsere_km) * futasteljesitmeny / evek +
+                (gumikopas_km + olajcsere_km) * futasteljesitmeny_evente +
                 aprosagok +
                 akkumulator_eves +
                 muszaki_vizsga
             ) / 12 + automosas;
-            const ertekvesztes = ertekvesztes_iden / 12;
+            const ertekvesztes = ertekvesztes_eves / 12 + ertekvesztes_ujauto / csere_evek / 12;
             const elmaradt_kamatok = (elmaradt_kamat + garazs_elmaradt_kamat) / 12;
             const biztositasok = (biztositas_kotelezo + casco) / 12;
             const parkolas = parkolas_otthon + parkolas_mashol;
-            const uzemanyag = uzemanyag_km * (futasteljesitmeny / (evek * 12));
+            const uzemanyag = uzemanyag_km * (futasteljesitmeny_evente / 12);
 
             const havi_koltseg =
                 ertekvesztes + elmaradt_kamatok + biztositasok + karbantartas + parkolas + uzemanyag +
@@ -894,16 +952,18 @@
             document.getElementById('reszletek-kamat').textContent = Math.round(elmaradt_kamatok).toLocaleString('hu-HU');
             document.getElementById('reszletek-biztositas').textContent = Math.round(biztositasok).toLocaleString('hu-HU');
             document.getElementById('reszletek-biztositanatlan_kockazat').textContent = Math.round(biztositatlan_kockazat / 12).toLocaleString('hu-HU');
-            document.getElementById('reszletek-karbantartas').textContent = Math.round((szerviz + (gumikopas_km + olajcsere_km) * futasteljesitmeny / evek + aprosagok + akkumulator_eves) / 12).toLocaleString('hu-HU');
+            document.getElementById('reszletek-karbantartas').textContent = Math.round(karbantartas).toLocaleString('hu-HU');
             document.getElementById('reszletek-parkolas').textContent = Math.round(parkolas).toLocaleString('hu-HU');
             document.getElementById('reszletek-autopalya').textContent = Math.round(utdij / 12).toLocaleString('hu-HU');
             document.getElementById('reszletek-adok').textContent = Math.round((gepjarmuado + birsag + atiras / csere_evek) / 12).toLocaleString('hu-HU');
+            document.getElementById('reszletek-extrak').textContent = Math.round((extrak + egyeb_koltseg) / evek / 12).toLocaleString('hu-HU');
 
             const km_koltseg =
                 gumikopas_km +
                 olajcsere_km +
                 uzemanyag_km +
-                szerviz * 0.8 / (futasteljesitmeny / evek);
+                szerviz * 0.8 / (futasteljesitmeny_evente) + // szervizköltség 80%-a futásarányos
+                biztositatlan_kockazat / futasteljesitmeny_evente;
             document.getElementById('eredmeny_km_koltseg').textContent = Math.round(km_koltseg).toLocaleString('hu-HU');
             document.getElementById('faq-km-koltseg').textContent = Math.round(km_koltseg).toLocaleString('hu-HU');
 
@@ -947,11 +1007,25 @@
             // Frissítés induláskor is
             updateVarosArany();
         });
+
+        // Megvane input alapján mezők elrejtése/megjelenítése
+        document.addEventListener('DOMContentLoaded', function () {
+            function updateAutovasarlasMezok() {
+                const meglevo = document.getElementById('meglevo').checked;
+                document.getElementById('vasarlas_datum_group').style.display = meglevo ? '' : 'none';
+                document.getElementById('futasteljesitmeny_group').style.display = meglevo ? '' : 'none';
+                document.getElementById('futasteljesitmeny_evente_group').style.display = meglevo ? 'none' : '';
+                document.getElementById('extrak_group').style.display = meglevo ? '' : 'none';
+            }
+            document.getElementById('meglevo').addEventListener('change', updateAutovasarlasMezok);
+            document.getElementById('mostveszem').addEventListener('change', updateAutovasarlasMezok);
+            updateAutovasarlasMezok();
+        });
     </script>
 </body>
 
 </html>
-<footer class="bg-dark text-light border-top">
+<footer class="border-top">
     <div class="container text-center py-3">
         <div>
             Készítette: Révész Levente
