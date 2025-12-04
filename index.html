@@ -940,8 +940,9 @@
             const orszagut_fogyasztas = Number(document.getElementById('orszagut_fogyasztas').value) || 0;
             const autopalya_fogyasztas = Number(document.getElementById('autopalya_fogyasztas').value) || 0;
             const uzemanyag_ar = Number(document.getElementById('uzemanyag_ar').value) || 0;
-            const kamat = (Number(document.getElementById('kamat').value) || 0) / 100;
+            const kamatlab = (Number(document.getElementById('kamat').value) || 0) / 100;
             const inflacio = (Number(document.getElementById('inflacio').value) || 0) / 100;
+            const realkamatlab = ((1 + kamatlab) / (1 + inflacio)) - 1;
             const garazs_ertek = (document.getElementById('parkolas_garazs').checked) ? Number(document.getElementById('garazs_ertek').value) || 0 : 0;
             const futasteljesitmeny_evente = mostveszem ? Number(document.getElementById('futasteljesitmeny_evente').value) : futasteljesitmeny / evek;
             const statisztika_atlagos_futasteljesitmeny_evente = 20000;
@@ -978,13 +979,13 @@
             const gepjarmuado = Number(document.getElementById('gepjarmuado').value) || 0;
             const muszaki_vizsga = Number(document.getElementById('muszaki_vizsga').value) / 2 || 0;
             const ertekvesztes_eves = vetelar * (1 - Math.pow(1 - ertekvesztes_rata, csere_evek)) / csere_evek;
-            const elmaradt_kamat = hitel_van ? hitel_onresz * kamat : vetelar * kamat;
+            const elmaradt_kamat = hitel_van ? hitel_onresz * kamatlab : vetelar * kamatlab;
             const szerviz = Number(document.getElementById('szerviz').value) || 0;
             const utdij = Number(document.getElementById('utdij').value) || 0;
             const birsag = Number(document.getElementById('birsag').value) || 0;
             const aprosagok = Number(document.getElementById('aprosagok').value) || 0;
             const akkumulator_eves = (Number(document.getElementById('akkumulator').value) || 0) / (Number(document.getElementById('akkumulator_evek').value) || 5);
-            const garazs_elmaradt_kamat = garazs_ertek * (kamat - inflacio);
+            const garazs_elmaradt_kamat = garazs_ertek * (realkamatlab);
 
             // havi költségek
             const automosas = Number(document.getElementById('automosas').value) || 0;
@@ -1053,7 +1054,7 @@
             // kamatos kamat
             const megtakaritas_evek = Number(document.getElementById('megtakaritas_evek_csuszka')?.value) || evek;
             document.getElementById('megtakaritas_evek').textContent = megtakaritas_evek;
-            const elmaradt_megtakaritas = havi_koltseg * 12 * (Math.pow(1 + kamat - inflacio, megtakaritas_evek) - 1) / (kamat - inflacio);
+            const elmaradt_megtakaritas = havi_koltseg * 12 * (Math.pow(1 + realkamatlab, megtakaritas_evek) - 1) / (realkamatlab);
             document.getElementById('eredmeny_megtakaritas').textContent = (Math.round(elmaradt_megtakaritas / 1000) * 1000).toLocaleString('hu-HU');
 
         }
