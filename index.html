@@ -458,39 +458,67 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label for="nyarigumi" class="form-label">Nyári gumigarnitúra ára</label>
-                            <div class="input-group">
-                                <input type="number" class="form-control" id="nyarigumi" name="nyarigumi" value="120000"
-                                    min="0" step="1000">
-                                <span class="input-group-text">Ft</span>
-                            </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="negyevszakos_gumi" name="negyevszakos_gumi">
+                            <label class="form-check-label" for="negyevszakos_gumi">Négyévszakos gumit használok</label>
                         </div>
-                        <div class="col-md-6">
-                            <label for="nyarigumi_km" class="form-label">Hány kilométerenként veszel újat?</label>
-                            <div class="input-group">
-                                <input type="number" class="form-control" id="nyarigumi_km" name="nyarigumi_km"
-                                    value="60000" min="0" step="1000">
-                                <span class="input-group-text">km</span>
+                    </div>
+                    <div id="negyevszakos_gumi_group" style="display: none;">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="negyevszakos_gumi_ar" class="form-label">Négyévszakos gumigarnitúra ára</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="negyevszakos_gumi_ar" name="negyevszakos_gumi_ar" value="120000"
+                                        min="0" step="1000">
+                                    <span class="input-group-text">Ft</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="negyevszakos_gumi_km" class="form-label">Hány kilométerenként veszel újat?</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="negyevszakos_gumi_km" name="negyevszakos_gumi_km"
+                                        value="60000" min="0" step="1000">
+                                    <span class="input-group-text">km</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label for="teligumi" class="form-label">Téli gumigarnitúra ára</label>
-                            <div class="input-group">
-                                <input type="number" class="form-control" id="teligumi" name="teligumi" value="120000"
-                                    min="0" step="1000">
-                                <span class="input-group-text">Ft</span>
+                    <div id="teli_nyari_gumi_group">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="nyarigumi" class="form-label">Nyári gumigarnitúra ára</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="nyarigumi" name="nyarigumi" value="120000"
+                                        min="0" step="1000">
+                                    <span class="input-group-text">Ft</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="nyarigumi_km" class="form-label">Hány kilométerenként veszel újat?</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="nyarigumi_km" name="nyarigumi_km"
+                                        value="60000" min="0" step="1000">
+                                    <span class="input-group-text">km</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <label for="teligumi_km" class="form-label">Hány kilométerenként veszel újat?</label>
-                            <div class="input-group">
-                                <input type="number" class="form-control" id="teligumi_km" name="teligumi_km"
-                                    value="60000" min="0" step="1000">
-                                <span class="input-group-text">km</span>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="teligumi" class="form-label">Téli gumigarnitúra ára</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="teligumi" name="teligumi" value="120000"
+                                        min="0" step="1000">
+                                    <span class="input-group-text">Ft</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="teligumi_km" class="form-label">Hány kilométerenként veszel újat?</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="teligumi_km" name="teligumi_km"
+                                        value="60000" min="0" step="1000">
+                                    <span class="input-group-text">km</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -994,8 +1022,11 @@
             const parkolas_otthon = document.getElementById('parkolas_berlet').checked ? Number(document.getElementById('garazsberlet').value) || 0 : 0;
 
             // futásarányos költségek
-            const gumikopas_km = ((Number(document.getElementById('nyarigumi').value) || 0) / (Number(document.getElementById('nyarigumi_km').value) || 50000)) +
-                ((Number(document.getElementById('teligumi').value) || 0) / (Number(document.getElementById('teligumi_km').value) || 50000)) / 2;
+            const negyevszakos = document.getElementById('negyevszakos_gumi').checked;
+            const gumikopas_km = negyevszakos ? 
+                ((Number(document.getElementById('negyevszakos_gumi_ar').value) || 0) / (Number(document.getElementById('negyevszakos_gumi_km').value) || 60000)) :
+                (((Number(document.getElementById('nyarigumi').value) || 0) / (Number(document.getElementById('nyarigumi_km').value) || 50000)) +
+                ((Number(document.getElementById('teligumi').value) || 0) / (Number(document.getElementById('teligumi_km').value) || 50000))) / 2;
             const olajcsere_km = (Number(document.getElementById('olajcsere').value) || 0) / (Number(document.getElementById('olajcsere_km').value) || 10000);
             const uzemanyag_km = (
                 (varos_arany * varos_fogyasztas) +
@@ -1104,6 +1135,17 @@
             document.getElementById('meglevo').addEventListener('change', updateAutovasarlasMezok);
             document.getElementById('mostveszem').addEventListener('change', updateAutovasarlasMezok);
             updateAutovasarlasMezok();
+        });
+
+        // Négyévszakos gumi checkbox kezelése
+        document.addEventListener('DOMContentLoaded', function () {
+            function updateGumiMezok() {
+                const negyevszakos = document.getElementById('negyevszakos_gumi').checked;
+                document.getElementById('negyevszakos_gumi_group').style.display = negyevszakos ? '' : 'none';
+                document.getElementById('teli_nyari_gumi_group').style.display = negyevszakos ? 'none' : '';
+            }
+            document.getElementById('negyevszakos_gumi').addEventListener('change', updateGumiMezok);
+            updateGumiMezok();
         });
 
         // Primary keret a kiválasztott radio buttonos kártyákra
