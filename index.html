@@ -188,16 +188,16 @@
                     <div class="mb-3">
                         <label for="hitel_onresz" class="form-label">Önrész</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" id="hitel_onresz" name="hitel_onresz" value="0" min="0"
-                                step="100000">
+                            <input type="number" class="form-control" id="hitel_onresz" name="hitel_onresz" value="0"
+                                min="0" step="100000">
                             <span class="input-group-text">Ft</span>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="torlesztoreszlet" class="form-label">Havi törlesztőrészlet</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" id="torlesztoreszlet" name="torlesztoreszlet" value="0" min="0"
-                                step="1000">
+                            <input type="number" class="form-control" id="torlesztoreszlet" name="torlesztoreszlet"
+                                value="0" min="0" step="1000">
                             <span class="input-group-text">Ft/hó</span>
                         </div>
                         <div class="form-text text-muted" style="font-size: 0.95em;">
@@ -460,25 +460,28 @@
                     </div>
                     <div class="mb-3">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="negyevszakos_gumi" name="negyevszakos_gumi">
+                            <input class="form-check-input" type="checkbox" id="negyevszakos_gumi"
+                                name="negyevszakos_gumi">
                             <label class="form-check-label" for="negyevszakos_gumi">Négyévszakos gumit használok</label>
                         </div>
                     </div>
                     <div id="negyevszakos_gumi_group" style="display: none;">
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="negyevszakos_gumi_ar" class="form-label">Négyévszakos gumigarnitúra ára</label>
+                                <label for="negyevszakos_gumi_ar" class="form-label">Négyévszakos gumigarnitúra
+                                    ára</label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control" id="negyevszakos_gumi_ar" name="negyevszakos_gumi_ar" value="120000"
-                                        min="0" step="1000">
+                                    <input type="number" class="form-control" id="negyevszakos_gumi_ar"
+                                        name="negyevszakos_gumi_ar" value="120000" min="0" step="1000">
                                     <span class="input-group-text">Ft</span>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="negyevszakos_gumi_km" class="form-label">Hány kilométerenként veszel újat?</label>
+                                <label for="negyevszakos_gumi_km" class="form-label">Hány kilométerenként veszel
+                                    újat?</label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control" id="negyevszakos_gumi_km" name="negyevszakos_gumi_km"
-                                        value="60000" min="0" step="1000">
+                                    <input type="number" class="form-control" id="negyevszakos_gumi_km"
+                                        name="negyevszakos_gumi_km" value="60000" min="0" step="1000">
                                     <span class="input-group-text">km</span>
                                 </div>
                             </div>
@@ -489,8 +492,8 @@
                             <div class="col-md-6">
                                 <label for="nyarigumi" class="form-label">Nyári gumigarnitúra ára</label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control" id="nyarigumi" name="nyarigumi" value="120000"
-                                        min="0" step="1000">
+                                    <input type="number" class="form-control" id="nyarigumi" name="nyarigumi"
+                                        value="120000" min="0" step="1000">
                                     <span class="input-group-text">Ft</span>
                                 </div>
                             </div>
@@ -507,8 +510,8 @@
                             <div class="col-md-6">
                                 <label for="teligumi" class="form-label">Téli gumigarnitúra ára</label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control" id="teligumi" name="teligumi" value="120000"
-                                        min="0" step="1000">
+                                    <input type="number" class="form-control" id="teligumi" name="teligumi"
+                                        value="120000" min="0" step="1000">
                                     <span class="input-group-text">Ft</span>
                                 </div>
                             </div>
@@ -787,7 +790,8 @@
                 <p>
                     &dagger; Vedd figyelembe, hogy ezek becsült értékek, és csak annyira pontosak, amennyire pontos
                     számokat megadtál. <br>
-                    &Dagger; Ha továbbra is ugyanennyit költesz havonta. A hosszú távú költség mai értéken van kifejezve.
+                    &Dagger; Ha továbbra is ugyanennyit költesz havonta. A hosszú távú költség mai értéken van
+                    kifejezve.
                 </p>
                 <p class="text-center">
                     <a href="magyarazat.html" class="btn btn-primary">
@@ -1023,10 +1027,10 @@
 
             // futásarányos költségek
             const negyevszakos = document.getElementById('negyevszakos_gumi').checked;
-            const gumikopas_km = negyevszakos ? 
+            const gumikopas_km = negyevszakos ?
                 ((Number(document.getElementById('negyevszakos_gumi_ar').value) || 0) / (Number(document.getElementById('negyevszakos_gumi_km').value) || 60000)) :
                 (((Number(document.getElementById('nyarigumi').value) || 0) / (Number(document.getElementById('nyarigumi_km').value) || 50000)) +
-                ((Number(document.getElementById('teligumi').value) || 0) / (Number(document.getElementById('teligumi_km').value) || 50000))) / 2;
+                    ((Number(document.getElementById('teligumi').value) || 0) / (Number(document.getElementById('teligumi_km').value) || 50000))) / 2;
             const olajcsere_km = (Number(document.getElementById('olajcsere').value) || 0) / (Number(document.getElementById('olajcsere_km').value) || 10000);
             const uzemanyag_km = (
                 (varos_arany * varos_fogyasztas) +
